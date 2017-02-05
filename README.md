@@ -1,5 +1,5 @@
 # windows
 
-Driver for Windows.
+Driver for Windows.  Based on EdgeHTML.
 
 Status: Experimenting.
