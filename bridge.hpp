@@ -5,9 +5,10 @@
 extern "C" {
 #endif
 
-void CPP_OnPrint(const char* str);
+void CPP_OnPrint(const char *str);
 
 #ifdef __cplusplus
 }
 #endif
+
 #endif /* bridge_h */

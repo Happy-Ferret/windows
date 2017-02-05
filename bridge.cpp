@@ -1,8 +1,7 @@
 #include "bridge.hpp"
-#include <iostream>
 #include "_cgo_export.h"
+#include <iostream>
+
 
 // Test to try c++ dll communication with go.
-void CPP_OnPrint(const char* str){
-     goCallback((char*)str);
-}
+void CPP_OnPrint(const char *str) { goCallback((char *)str); }
