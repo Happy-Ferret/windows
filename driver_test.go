@@ -1,6 +1,14 @@
 package windows
 
-import "testing"
+import (
+	"testing"
+	"time"
+)
 
-func TestDriver(t *testing.T) {
+func TestDriverRun(t *testing.T) {
+	go func() {
+		time.Sleep(time.Second * 10)
+		driver.closeChan <- true
+	}()
+	driver.Run()
 }

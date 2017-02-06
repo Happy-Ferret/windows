@@ -289,3 +289,6 @@ native/x64/Release/murlok.exp
 native/murlok/x64/Release/.NETFramework,Version=v4.5.2.AssemblyAttributes.asm
 *.res
 .vscode/settings.json
+*.ipdb
+*.ipdb
+*.iobj

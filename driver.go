@@ -4,12 +4,14 @@ import (
 	"errors"
 	"log"
 	"runtime"
+	"syscall"
 
 	"github.com/murlokswarm/app"
 )
 
 var (
 	driver   *Driver
+	dll      *syscall.DLL
 	launched = false
 )
 
@@ -17,18 +19,37 @@ func init() {
 	runtime.LockOSThread()
 	driver = NewDriver()
 	app.RegisterDriver(driver)
+
+	var err error
+	if dll, err = syscall.LoadDLL(`native\x64\Release\murlok.dll`); err != nil {
+		log.Panic(err)
+	}
 }
 
 // Driver is the implementation of the Windows driver.
 type Driver struct {
+	closeChan chan bool
 }
 
 // NewDriver creates a new Windows driver.
 func NewDriver() *Driver {
-	return &Driver{}
+	return &Driver{
+		closeChan: make(chan bool),
+	}
 }
 
 func (d *Driver) Run() {
+	proc, err := dll.FindProc("Driver_Run")
+	if err != nil {
+		log.Panic(err)
+	}
+	proc.Call()
+
+	for closed := range d.closeChan {
+		if closed {
+			return
+		}
+	}
 }
 
 func (d *Driver) NewContext(ctx interface{}) app.Contexter {
