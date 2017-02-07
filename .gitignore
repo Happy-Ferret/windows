@@ -38,6 +38,7 @@ _testmain.go
 
 # Build results
 [Dd]ebug/
+[Bb]in/
 [Dd]ebugPublic/
 [Rr]eleases/
 x86/
