@@ -162,8 +162,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy $(SolutionDir)$(Platform)\$(Configuration)\*.dll $(SolutionDir)\..\lib\ /D /S /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

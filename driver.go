@@ -21,7 +21,7 @@ func init() {
 	app.RegisterDriver(driver)
 
 	var err error
-	if dll, err = syscall.LoadDLL(`native\x64\Release\murlok.dll`); err != nil {
+	if dll, err = syscall.LoadDLL(`lib\murlok.dll`); err != nil {
 		log.Panic(err)
 	}
 }

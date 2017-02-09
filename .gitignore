@@ -42,6 +42,7 @@ _testmain.go
 [Dd]ebugPublic/
 [Rr]eleases/
 x86/
+x64/
 bld/
 [Oo]bj/
 [Ll]og/
@@ -292,3 +293,4 @@ native/murlok/x64/Release/.NETFramework,Version=v4.5.2.AssemblyAttributes.asm
 *.iobj
 *.iobj
 *.ipdb
+*.iobj
