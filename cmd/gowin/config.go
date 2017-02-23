@@ -27,7 +27,7 @@ func defaultConfig() configuration {
 	return configuration{
 		Name:      name,
 		Publisher: publisher,
-		Version:   "1.0.0.1",
+		Version:   "1.0.0.0",
 		Icon:      "icon.png",
 	}
 }
