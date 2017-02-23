@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -23,6 +24,14 @@ func build() error {
 	if err := goBuild(); err != nil {
 		return nil
 	}
+
+	if err := generateManifest(); err != nil {
+		return err
+	}
+
+	if err := packAppx(); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -38,7 +47,7 @@ func copyDLL() error {
 
 func copyUWP() error {
 	return cli.Exec("xcopy",
-		filepath.Join(winPackagePath(), `native\murlok-uwp\bin\x64\Release\AppX`),
+		filepath.Join(winPackagePath(), `uwp`),
 		`AppX\`,
 		"/D",
 		"/S",
@@ -65,5 +74,19 @@ func goBuild() error {
 		"build",
 		"-o",
 		filepath.Join("AppX", cfg.ExecName()),
+	)
+}
+
+func packAppx() error {
+	name := fmt.Sprintf("%s.appx", cfg.Name)
+	os.Remove(name)
+
+	return cli.Exec(`C:\Program Files (x86)\Windows Kits\10\bin\x64\MakeAppx.exe`,
+		"pack",
+		"/d",
+		`AppX\`,
+		"/p",
+		name,
+		"/l",
 	)
 }

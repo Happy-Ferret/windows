@@ -1,6 +1,9 @@
 {
+  "id": "Maxence.gowin",
   "name": "gowin",
-  "publisher": "CN=gowin",
-  "version": "1.0.0.1",
+  "display-name": "gowin",
+  "publisher": "Maxence",
+  "publisher-id": "CN=Maxence",
+  "version": "1.0.0.0",
   "icon": "icon.png"
 }

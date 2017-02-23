@@ -10,10 +10,13 @@ import (
 )
 
 type configuration struct {
-	Name      string `json:"name"      help:"Package name."`
-	Publisher string `json:"publisher" help:"Publisher name."`
-	Version   string `json:"version"   help:"Version of the app."`
-	Icon      string `json:"icon"      help:"The app icon as .png file. Provide a big one!"`
+	ID          string `json:"id"           help:"Identity name"`
+	Name        string `json:"name"         help:"Application name"`
+	DisplayName string `json:"display-name" help:"Application name displayed"`
+	Publisher   string `json:"publisher"    help:"Publisher name."`
+	PublisherID string `json:"publisher-id" help:"Publisher id."`
+	Version     string `json:"version"      help:"Version of the app."`
+	Icon        string `json:"icon"         help:"The app icon as .png file. Provide a big one!"`
 }
 
 func defaultConfig() configuration {
@@ -22,13 +25,18 @@ func defaultConfig() configuration {
 		log.Panic(err)
 	}
 	name := filepath.Base(wd)
-	publisher := fmt.Sprintf("CN=%s", name)
+	user := os.Getenv("USERNAME")
+	id := fmt.Sprintf("%s.%s", user, name)
+	publisherID := fmt.Sprintf("CN=%s", user)
 
 	return configuration{
-		Name:      name,
-		Publisher: publisher,
-		Version:   "1.0.0.0",
-		Icon:      "icon.png",
+		ID:          id,
+		Name:        name,
+		DisplayName: name,
+		Publisher:   user,
+		PublisherID: publisherID,
+		Version:     "1.0.0.0",
+		Icon:        "icon.png",
 	}
 }
 

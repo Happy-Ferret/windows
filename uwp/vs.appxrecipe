@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>INFINITELOOP</Machine>
+    <WindowsUser>Maxence</WindowsUser>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetOsVersion>10.0</TargetOsVersion>
+    <TargetOsDescription>Windows 10.0</TargetOsDescription>
+    <SolutionConfiguration>Release|x64</SolutionConfiguration>
+    <PackageArchitecture>x64</PackageArchitecture>
+    <PackageIdentityName>5f3c9717-347d-4f5c-8e57-ca5ea643ff85</PackageIdentityName>
+    <PackageIdentityPublisher>CN=Maxence</PackageIdentityPublisher>
+    <IntermediateOutputPath>C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\obj\x64\Release\</IntermediateOutputPath>
+    <RemoteDeploymentType>
+    </RemoteDeploymentType>
+    <PackageRegistrationPath>
+    </PackageRegistrationPath>
+    <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
+    <RegisteredManifestChecksum>51110636995A0E93A9407178AC111EA9E2372572829843B3164520806A70A554</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>5f3c9717-347d-4f5c-8e57-ca5ea643ff85_1.0.0.0_x64__yrmhdqw7xq858</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>5f3c9717-347d-4f5c-8e57-ca5ea643ff85_yrmhdqw7xq858!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>5f3c9717-347d-4f5c-8e57-ca5ea643ff85</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Maxence</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-02-09T05:15:04.878</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\Assets\LockScreenLogo.scale-200.png">
+      <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
+      <Modified>2015-09-21T01:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\Assets\SplashScreen.scale-200.png">
+      <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-21T01:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\Assets\Square150x150Logo.scale-200.png">
+      <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-21T01:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\Assets\Square44x44Logo.scale-200.png">
+      <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-21T01:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-21T01:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\Assets\StoreLogo.png">
+      <PackagePath>Assets\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-21T01:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
+      <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-09-21T01:30:08.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\ClrCompression.dll">
+      <PackagePath>ClrCompression.dll</PackagePath>
+      <Modified>2015-08-13T21:47:36.932</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\murlok-uwp.dll">
+      <PackagePath>murlok-uwp.dll</PackagePath>
+      <Modified>2017-02-09T05:15:04.756</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\murlok-uwp.exe">
+      <PackagePath>murlok-uwp.exe</PackagePath>
+      <Modified>2017-02-09T05:15:04.860</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\murlok-uwp.pdb">
+      <PackagePath>murlok-uwp.pdb</PackagePath>
+      <Modified>2017-02-09T05:15:04.852</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Dev\Go\src\github.com\murlokswarm\windows\native\murlok-uwp\bin\x64\Release\ilc\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2017-02-09T05:14:50.586</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\">
+      <Name>Microsoft.NET.Native.Framework.1.3</Name>
+      <Version>1.3.24201.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.3, MinVersion = 1.3.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\.\arm\ret\Native\Microsoft.NET.Native.Framework.1.3.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\">
+      <Name>Microsoft.NET.Native.Framework.1.3</Name>
+      <Version>1.3.24201.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.3, MinVersion = 1.3.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\.\x64\ret\Native\Microsoft.NET.Native.Framework.1.3.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\">
+      <Name>Microsoft.NET.Native.Framework.1.3</Name>
+      <Version>1.3.24201.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Framework.1.3, MinVersion = 1.3.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Framework.1.3\1.3\.\x86\ret\Native\Microsoft.NET.Native.Framework.1.3.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\">
+      <Name>Microsoft.NET.Native.Runtime.1.4</Name>
+      <Version>1.4.24201.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.4, MinVersion = 1.4.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\.\AppX\ARM\Microsoft.NET.Native.Runtime.1.4.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\">
+      <Name>Microsoft.NET.Native.Runtime.1.4</Name>
+      <Version>1.4.24201.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.4, MinVersion = 1.4.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\.\AppX\x64\Microsoft.NET.Native.Runtime.1.4.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\">
+      <Name>Microsoft.NET.Native.Runtime.1.4</Name>
+      <Version>1.4.24201.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.NET.Native.Runtime.1.4, MinVersion = 1.4.24201.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.NET.Native.Runtime.1.4\1.4\.\AppX\x86\Microsoft.NET.Native.Runtime.1.4.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>ARM</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\ARM\Microsoft.VCLibs.ARM.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>x64</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x64\Microsoft.VCLibs.x64.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
+      <Name>Microsoft.VCLibs.140.00</Name>
+      <Version>14.0.24123.0</Version>
+      <Architecture>x86</Architecture>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00, MinVersion = 14.0.24123.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Retail\x86\Microsoft.VCLibs.x86.14.00.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+  </ItemGroup>
+</Project>
