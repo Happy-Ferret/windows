@@ -33,7 +33,7 @@ func defaultConfig() configuration {
 		ID:          id,
 		Name:        name,
 		DisplayName: name,
-		Publisher:   user,
+		Publisher:   name,
 		PublisherID: publisherID,
 		Version:     "1.0.0.0",
 		Icon:        "icon.png",
@@ -42,6 +42,10 @@ func defaultConfig() configuration {
 
 func (c configuration) ExecName() string {
 	return c.Name + ".exe"
+}
+
+func (c configuration) AppXName() string {
+	return c.Name + ".appx"
 }
 
 func winPackagePath() string {

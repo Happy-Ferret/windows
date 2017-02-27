@@ -8,17 +8,14 @@ import (
 
 var manifestTmpl = `<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
+         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
          xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
          xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" IgnorableNamespaces="uap mp rescap desktop build" 
          xmlns:build="http://schemas.microsoft.com/developer/appx/2015/build">
          
-  <Identity
-    Name="{{.ID}}"  
-    Publisher="{{.PublisherID}}"
-    Version="{{.Version}}" 
-    ProcessorArchitecture="x64" />
+  <Identity Name="{{.ID}}" Publisher="{{.PublisherID}}" Version="{{.Version}}" ProcessorArchitecture="x64" />
+  <mp:PhoneIdentity PhoneProductId="{{.ID}}" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
 
   <Properties>
     <DisplayName>{{.DisplayName}}</DisplayName>
@@ -26,16 +23,16 @@ var manifestTmpl = `<?xml version="1.0" encoding="utf-8"?>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
-  <Resources>
-    <Resource Language="EN-US" />
-  </Resources>
-
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
     <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.22929.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
     <PackageDependency Name="Microsoft.NET.Native.Framework.1.3" MinVersion="1.3.24201.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
     <PackageDependency Name="Microsoft.NET.Native.Runtime.1.4" MinVersion="1.4.24201.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
   </Dependencies>
+
+  <Resources>
+    <Resource Language="EN-US" />
+  </Resources>
 
   <Applications>
     <Application Id="App"
@@ -52,7 +49,7 @@ var manifestTmpl = `<?xml version="1.0" encoding="utf-8"?>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
 
-      <Extensions>
+    <Extensions>
         <uap:Extension Category="windows.appService">
           <uap:AppService Name="CommunicationService" />
         </uap:Extension>
