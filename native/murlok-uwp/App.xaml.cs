@@ -115,8 +115,7 @@ namespace murlok_uwp
             }
             catch (Exception)
             {
-                MessageDialog dialog = new MessageDialog("BackgroundProcess is not in your AppX folder");
-                await dialog.ShowAsync();
+                System.Diagnostics.Debug.WriteLine("BackgroundProcess failed to launch");
             }
         }
     }

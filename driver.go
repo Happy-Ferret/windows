@@ -2,11 +2,11 @@ package windows
 
 import (
 	"errors"
-	"log"
 	"runtime"
 	"syscall"
 
 	"github.com/murlokswarm/app"
+	"github.com/murlokswarm/log"
 )
 
 var (
@@ -20,9 +20,10 @@ func init() {
 	driver = NewDriver()
 	app.RegisterDriver(driver)
 
-	var err error
-	if dll, err = syscall.LoadDLL(`lib\murlok.dll`); err != nil {
-		log.Panic(err)
+	dllName := `murlok.dll`
+
+	if _, err := syscall.LoadDLL(dllName); err != nil {
+		log.Warn(err)
 	}
 }
 
@@ -41,7 +42,8 @@ func NewDriver() *Driver {
 func (d *Driver) Run() {
 	proc, err := dll.FindProc("Driver_Run")
 	if err != nil {
-		log.Panic(err)
+		log.Warn(err)
+		return
 	}
 	proc.Call()
 

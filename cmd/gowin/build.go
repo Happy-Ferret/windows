@@ -25,11 +25,7 @@ func build() error {
 		return err
 	}
 
-	if err := generateDebugManifest(); err != nil {
-		return err
-	}
-
-	if err := generateReleaseManifest(); err != nil {
+	if err := generateManifest(); err != nil {
 		return err
 	}
 
@@ -61,54 +57,29 @@ func initSolution() error {
 		return err
 	}
 
-	os.RemoveAll(`.gowin\bin`)
 	os.RemoveAll(`.gowin\obj`)
 	return nil
 }
 
-func launchSolution() error {
-	return cli.Exec(`C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe`,
-		"/runexit",
-		`.gowin\murlok.sln`,
-		"/nologo",
-	)
-}
-
 func copyDLL() error {
-	if err := cli.Exec("xcopy",
-		filepath.Join(winPackagePath(), `lib\Win32\*.dll`),
-		`.gowin\bin\x86\Debug\AppX\`,
-		"/D",
-		"/S",
-		"/Y",
-	); err != nil {
+	if err := os.MkdirAll(`.gowin\bin\x64\Debug\AppX\`, os.ModeDir|0755); err != nil {
 		return err
 	}
-	if err := cli.Exec("xcopy",
-		filepath.Join(winPackagePath(), `lib\Win32\*.dll`),
-		`.gowin\bin\x86\Release\AppX\`,
-		"/D",
-		"/S",
-		"/Y",
-	); err != nil {
+	if err := os.MkdirAll(`.gowin\bin\x64\Release\AppX\`, os.ModeDir|0755); err != nil {
 		return err
 	}
 
-	if err := cli.Exec("xcopy",
-		filepath.Join(winPackagePath(), `lib\x64\*.dll`),
-		`.gowin\bin\x64\Debug\AppX\`,
-		"/D",
-		"/S",
-		"/Y",
+	if err := cli.Exec("powershell",
+		"copy",
+		filepath.Join(winPackagePath(), `lib\x64\murlok.dll`),
+		`.gowin\bin\x64\Debug\AppX\murlok.dll`,
 	); err != nil {
 		return err
 	}
-	return cli.Exec("xcopy",
-		filepath.Join(winPackagePath(), `lib\x64\*.dll`),
-		`.gowin\bin\x64\Release\AppX\`,
-		"/D",
-		"/S",
-		"/Y",
+	return cli.Exec("powershell",
+		"copy",
+		filepath.Join(winPackagePath(), `lib\x64\murlok.dll`),
+		`.gowin\bin\x64\Release\AppX\murlok.dll`,
 	)
 }
 
@@ -139,15 +110,28 @@ func copyResources() error {
 func goBuild() error {
 	if err := cli.Exec("go",
 		"build",
-		"-o",
-		filepath.Join(`.gowin\bin\x64\Debug\AppX`, cfg.ExecName()),
 	); err != nil {
 		return err
 	}
 
-	return cli.Exec("go",
-		"build",
-		"-o",
-		filepath.Join(`.gowin\bin\x64\Release\AppX`, cfg.ExecName()),
+	if err := cli.Exec("powershell",
+		"copy",
+		cfg.ExecName(),
+		filepath.Join(`.gowin\bin\x64\Debug\AppX\`, cfg.ExecName()),
+	); err != nil {
+		return err
+	}
+	return cli.Exec("powershell",
+		"copy",
+		cfg.ExecName(),
+		filepath.Join(`.gowin\bin\x64\Release\AppX\`, cfg.ExecName()),
+	)
+}
+
+func launchSolution() error {
+	return cli.Exec(`C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe`,
+		"/runexit",
+		`.gowin\murlok.sln`,
+		"/nologo",
 	)
 }

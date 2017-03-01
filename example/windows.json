@@ -1,0 +1,9 @@
+{
+  "id": "Maxence.example",
+  "name": "example",
+  "display-name": "example",
+  "publisher": "example",
+  "publisher-id": "CN=Maxence",
+  "version": "1.0.0.0",
+  "icon": "icon.png"
+}
