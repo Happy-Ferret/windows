@@ -294,3 +294,6 @@ native/murlok/x64/Release/.NETFramework,Version=v4.5.2.AssemblyAttributes.asm
 *.iobj
 *.ipdb
 *.iobj
+*.exp
+*.ipdb
+native/x64/Release/murlok.iobj

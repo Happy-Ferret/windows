@@ -13,6 +13,26 @@ func build() error {
 		return err
 	}
 
+	if err := copyDLL(); err != nil {
+		return err
+	}
+
+	if err := copyResources(); err != nil {
+		return err
+	}
+
+	if err := goBuild(); err != nil {
+		return err
+	}
+
+	if err := generateDebugManifest(); err != nil {
+		return err
+	}
+
+	if err := generateReleaseManifest(); err != nil {
+		return err
+	}
+
 	if err := launchSolution(); err != nil {
 		return err
 	}
@@ -55,19 +75,37 @@ func launchSolution() error {
 }
 
 func copyDLL() error {
-	return cli.Exec("xcopy",
-		filepath.Join(winPackagePath(), `native\*.dll`),
-		`AppX\lib\`,
+	if err := cli.Exec("xcopy",
+		filepath.Join(winPackagePath(), `lib\Win32\*.dll`),
+		`.gowin\bin\x86\Debug\AppX\`,
 		"/D",
 		"/S",
 		"/Y",
-	)
-}
+	); err != nil {
+		return err
+	}
+	if err := cli.Exec("xcopy",
+		filepath.Join(winPackagePath(), `lib\Win32\*.dll`),
+		`.gowin\bin\x86\Release\AppX\`,
+		"/D",
+		"/S",
+		"/Y",
+	); err != nil {
+		return err
+	}
 
-func copyUWP() error {
+	if err := cli.Exec("xcopy",
+		filepath.Join(winPackagePath(), `lib\x64\*.dll`),
+		`.gowin\bin\x64\Debug\AppX\`,
+		"/D",
+		"/S",
+		"/Y",
+	); err != nil {
+		return err
+	}
 	return cli.Exec("xcopy",
-		filepath.Join(winPackagePath(), `uwp`),
-		`AppX\`,
+		filepath.Join(winPackagePath(), `lib\x64\*.dll`),
+		`.gowin\bin\x64\Release\AppX\`,
 		"/D",
 		"/S",
 		"/Y",
@@ -79,9 +117,19 @@ func copyResources() error {
 		return err
 	}
 
+	if err := cli.Exec("xcopy",
+		"resources",
+		`.gowin\bin\x64\Debug\AppX\Resources\`,
+		"/D",
+		"/E",
+		"/Y",
+	); err != nil {
+		return err
+	}
+
 	return cli.Exec("xcopy",
 		"resources",
-		`AppX\Resources\`,
+		`.gowin\bin\x64\Release\AppX\Resources\`,
 		"/D",
 		"/E",
 		"/Y",
@@ -89,77 +137,17 @@ func copyResources() error {
 }
 
 func goBuild() error {
+	if err := cli.Exec("go",
+		"build",
+		"-o",
+		filepath.Join(`.gowin\bin\x64\Debug\AppX`, cfg.ExecName()),
+	); err != nil {
+		return err
+	}
+
 	return cli.Exec("go",
 		"build",
 		"-o",
-		filepath.Join("AppX", cfg.ExecName()),
-	)
-}
-
-func packAppx() error {
-	name := cfg.AppXName()
-	os.Remove(name)
-
-	return cli.Exec(`C:\Program Files (x86)\Windows Kits\10\bin\x64\MakeAppx.exe`,
-		"pack",
-		"/d",
-		`AppX\`,
-		"/p",
-		name,
-		"/l",
-	)
-}
-
-func generateSelfSignedCertificate() error {
-	// err := cli.Exec("powershell",
-	// 	"New-SelfSignedCertificate",
-	// 	"-Type",
-	// 	"Custom",
-	// 	"-Subject",
-	// 	cfg.PublisherID,
-	// 	"-KeyUsage",
-	// 	"DigitalSignature",
-	// 	"-FriendlyName",
-	// 	cfg.Publisher,
-	// 	"-CertStoreLocation",
-	// 	`Cert:\CurrentUser\My`,
-	// )
-	// if err != nil {
-	// 	return err
-	// }
-
-	return cli.Exec("powershell",
-		"$pwd = ConvertTo-SecureString -String murlok42 -Force -AsPlainText;",
-		"Export-PfxCertificate",
-		"-cert",
-		`Cert:\CurrentUser\My\`+"F8E241C0AFDADC3F82AEE6B0FB4551E58D231E06",
-		"-FilePath",
-		cfg.ID+".pfx",
-		"-Password",
-		"$pwd",
-	)
-}
-
-func sign() error {
-	return cli.Exec(`C:\Program Files (x86)\Windows Kits\10\bin\x64\SignTool.exe`,
-		"sign",
-		"/fd",
-		"SHA256",
-		"/a",
-		"/f",
-		cfg.ID+".pfx",
-		"/p",
-		"murlok42",
-		cfg.AppXName(),
-	)
-}
-
-func install() error {
-	return cli.Exec(`C:\Program Files (x86)\Windows Kits\10\bin\x86\WinAppDeployCmd.exe`,
-		"install",
-		"-file",
-		cfg.AppXName(),
-		"-ip",
-		"127.0.0.1",
+		filepath.Join(`.gowin\bin\x64\Release\AppX`, cfg.ExecName()),
 	)
 }
