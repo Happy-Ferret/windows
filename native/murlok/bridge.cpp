@@ -17,13 +17,18 @@ AppServiceConnection ^ bridgeConn = nullptr;
 
 IAsyncAction ^ BridgeConnectAsync() {
   return create_async([] {
-    // Get the package family name
+	  // Get the package family name
     Windows::ApplicationModel::Package ^ package =
         Windows::ApplicationModel::Package::Current;
+	cout << "2" << endl;
     Platform::String ^ packageFamilyName = package->Id->FamilyName;
+	cout << "3" << endl;
+
 
     // Create and set the connection
     auto connection = ref new AppServiceConnection();
+	cout << "4" << endl;
+
     connection->PackageFamilyName = packageFamilyName;
     connection->AppServiceName = "CommunicationService";
     cout << "opening bridge..." << endl;

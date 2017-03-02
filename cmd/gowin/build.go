@@ -9,29 +9,39 @@ import (
 )
 
 func build() error {
-	if err := initSolution(); err != nil {
-		return err
+	// if err := initSolution(); err != nil {
+	// 	return err
+	// }
+
+	// if err := copyDLL(); err != nil {
+	// 	return err
+	// }
+
+	// if err := copyResources(); err != nil {
+	// 	return err
+	// }
+
+	// if err := goBuild(); err != nil {
+	// 	return err
+	// }
+
+	// if err := generateManifest(); err != nil {
+	// 	return err
 	}
 
-	if err := copyDLL(); err != nil {
-		return err
-	}
+	// if err := launchSolution(); err != nil {
+	// 	return err
+	// }
 
-	if err := copyResources(); err != nil {
-		return err
-	}
+	// if err := deploy(); err != nil {
+	// 	return err
+	// }
 
-	if err := goBuild(); err != nil {
-		return err
-	}
+	// if err := launch(); err != nil {
+	// 	return err
+	// }
 
-	if err := generateManifest(); err != nil {
-		return err
-	}
-
-	if err := launchSolution(); err != nil {
-		return err
-	}
+	
 	return nil
 }
 
@@ -69,17 +79,21 @@ func copyDLL() error {
 		return err
 	}
 
-	if err := cli.Exec("powershell",
-		"copy",
-		filepath.Join(winPackagePath(), `lib\x64\murlok.dll`),
-		`.gowin\bin\x64\Debug\AppX\murlok.dll`,
+	if err := cli.Exec("xcopy",
+		filepath.Join(winPackagePath(), `lib\x64\`),
+		`.gowin\bin\x64\Debug\AppX\`,
+		"/D",
+		"/E",
+		"/Y",
 	); err != nil {
 		return err
 	}
-	return cli.Exec("powershell",
-		"copy",
-		filepath.Join(winPackagePath(), `lib\x64\murlok.dll`),
-		`.gowin\bin\x64\Release\AppX\murlok.dll`,
+	return cli.Exec("xcopy",
+		filepath.Join(winPackagePath(), `lib\x64\`),
+		`.gowin\bin\x64\Release\AppX\`,
+		"/D",
+		"/E",
+		"/Y",
 	)
 }
 
@@ -110,6 +124,7 @@ func copyResources() error {
 func goBuild() error {
 	if err := cli.Exec("go",
 		"build",
+		"-v",
 	); err != nil {
 		return err
 	}
@@ -133,5 +148,29 @@ func launchSolution() error {
 		"/runexit",
 		`.gowin\murlok.sln`,
 		"/nologo",
+	)
+}
+
+func deploy() error {
+	fmt.Println("\033[00;1mBuilding Visual Studio solution...\033[00m")
+	return cli.Exec(`C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe`,
+		`.gowin\murlok.sln`,
+		"/build",
+		"Debug",
+	)
+}
+
+func launch() error {
+	return cli.Exec("powershell",
+		"start",
+		fmt.Sprintf(`shell:AppsFolder\%v_yrmhdqw7xq858!App`, cfg.ID),
+		"/wait",
+	)
+}
+
+func exportToDll() error {
+	return cli.Exec("go",
+		"build",
+		"-buildmode=c-archive ",
 	)
 }

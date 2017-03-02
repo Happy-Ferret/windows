@@ -12,18 +12,19 @@ import (
 var (
 	driver   *Driver
 	dll      *syscall.DLL
+	dllName  = `murlok.dll`
 	launched = false
 )
 
 func init() {
+	var err error
+
 	runtime.LockOSThread()
 	driver = NewDriver()
 	app.RegisterDriver(driver)
 
-	dllName := `murlok.dll`
-
-	if _, err := syscall.LoadDLL(dllName); err != nil {
-		log.Warn(err)
+	if dll, err = syscall.LoadDLL(dllName); err != nil {
+		log.Error(err)
 	}
 }
 
