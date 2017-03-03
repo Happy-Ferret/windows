@@ -1,12 +1,12 @@
 package main
 
+import _ "github.com/murlokswarm/windows"
 import (
 	"fmt"
 	"time"
 
 	"github.com/murlokswarm/app"
 	"github.com/murlokswarm/log"
-	_ "github.com/murlokswarm/windows"
 )
 
 func main() {

@@ -24,13 +24,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="murlok.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="bridge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="package.h">
+    <ClInclude Include="murlok.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,10 +38,10 @@
     <ClCompile Include="murlok.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bridge.cpp">
+    <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="package.cpp">
+    <ClCompile Include="bridge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
