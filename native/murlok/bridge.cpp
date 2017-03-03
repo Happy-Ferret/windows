@@ -18,6 +18,7 @@ AppServiceConnection ^ bridgeConn = nullptr;
 IAsyncAction ^ BridgeConnectAsync() {
   return create_async([] {
 	  // Get the package family name
+	  cout << "1" << endl;
     Windows::ApplicationModel::Package ^ package =
         Windows::ApplicationModel::Package::Current;
 	cout << "2" << endl;

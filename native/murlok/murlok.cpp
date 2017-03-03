@@ -10,5 +10,10 @@ void InitOnMurlokPrint(FuncOnMurlokPrint fn) {
 
 void Driver_Run() { 
 	std::cout << "C++ ~> Driver_Run()" << std::endl;
+	Windows::Foundation::Initialize();
 	BridgeConnectAsync();
+}
+
+void HelloGo() {
+	std::cout << "Hello Go, I'm cpp :D" << std::endl;
 }

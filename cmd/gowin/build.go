@@ -9,39 +9,42 @@ import (
 )
 
 func build() error {
-	// if err := initSolution(); err != nil {
+	if err := initSolution(); err != nil {
+		return err
+	}
+
+	// if err := convertDLL(); err != nil {
 	// 	return err
 	// }
 
-	// if err := copyDLL(); err != nil {
-	// 	return err
-	// }
+	if err := copyDLL(); err != nil {
+		return err
+	}
 
-	// if err := copyResources(); err != nil {
-	// 	return err
-	// }
+	if err := copyResources(); err != nil {
+		return err
+	}
 
-	// if err := goBuild(); err != nil {
-	// 	return err
-	// }
+	if err := goBuild(); err != nil {
+		return err
+	}
 
-	// if err := generateManifest(); err != nil {
-	// 	return err
+	if err := generateManifest(); err != nil {
+		return err
 	}
 
 	// if err := launchSolution(); err != nil {
 	// 	return err
 	// }
 
-	// if err := deploy(); err != nil {
-	// 	return err
-	// }
+	if err := deploy(); err != nil {
+		return err
+	}
 
-	// if err := launch(); err != nil {
-	// 	return err
-	// }
+	if err := launch(); err != nil {
+		return err
+	}
 
-	
 	return nil
 }
 
@@ -124,6 +127,8 @@ func copyResources() error {
 func goBuild() error {
 	if err := cli.Exec("go",
 		"build",
+		"-ldflags",
+		"-s",
 		"-v",
 	); err != nil {
 		return err
@@ -168,9 +173,13 @@ func launch() error {
 	)
 }
 
-func exportToDll() error {
-	return cli.Exec("go",
-		"build",
-		"-buildmode=c-archive ",
+func convertDLL() error {
+	return cli.Exec("dlltool",
+		"--dllname",
+		filepath.Join(winPackagePath(), `lib\x64\murlok.dll`),
+		"--def",
+		filepath.Join(winPackagePath(), `lib\x64\murlok.def`),
+		"--output-lib",
+		filepath.Join(winPackagePath(), `lib\x64\libmurlok.a`),
 	)
 }
