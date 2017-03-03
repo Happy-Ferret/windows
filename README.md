@@ -2,4 +2,7 @@
 
 Driver for Windows.  Based on EdgeHTML.
 
-Status: Experimenting.
+Status: 
+- Experimenting
+- Windows desktop bridge functional
+- Implementing driver...
