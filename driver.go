@@ -18,7 +18,7 @@ var (
 
 func init() {
 	var err error
-	
+
 	runtime.LockOSThread()
 	driver = NewDriver()
 	app.RegisterDriver(driver)
@@ -48,11 +48,12 @@ func (d *Driver) Run() {
 	}
 	proc.Call()
 
-	for closed := range d.closeChan {
-		if closed {
-			return
+	go func() {
+		for {
 		}
-	}
+	}()
+
+	<-d.closeChan
 }
 
 func (d *Driver) NewContext(ctx interface{}) app.Contexter {

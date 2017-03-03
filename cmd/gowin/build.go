@@ -160,7 +160,7 @@ func deploy() error {
 	fmt.Println("\033[00;1mBuilding Visual Studio solution...\033[00m")
 	return cli.Exec(`C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe`,
 		`.gowin\murlok.sln`,
-		"/build",
+		"/deploy",
 		"Debug",
 	)
 }

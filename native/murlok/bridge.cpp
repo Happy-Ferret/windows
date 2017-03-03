@@ -16,45 +16,41 @@ using namespace Windows::Data::Xml::Dom;
 AppServiceConnection ^ bridgeConn = nullptr;
 
 IAsyncAction ^ BridgeConnectAsync() {
-  return create_async([] {
-	  // Get the package family name
-	  cout << "1" << endl;
-    Windows::ApplicationModel::Package ^ package =
-        Windows::ApplicationModel::Package::Current;
-	cout << "2" << endl;
-    Platform::String ^ packageFamilyName = package->Id->FamilyName;
-	cout << "3" << endl;
+    return create_async([] {
+        // Get the package family name
+        Windows::ApplicationModel::Package ^ package =
+            Windows::ApplicationModel::Package::Current;
+        Platform::String ^ packageFamilyName = package->Id->FamilyName;
 
+        // Create and set the connection
+        auto connection = ref new AppServiceConnection();
 
-    // Create and set the connection
-    auto connection = ref new AppServiceConnection();
-	cout << "4" << endl;
+        connection->PackageFamilyName = packageFamilyName;
+        connection->AppServiceName = "CommunicationService";
+        cout << "opening bridge..." << endl;
 
-    connection->PackageFamilyName = packageFamilyName;
-    connection->AppServiceName = "CommunicationService";
-    cout << "opening bridge..." << endl;
+        // Open the connection
+        create_task(connection->OpenAsync())
+            .then([connection](AppServiceConnectionStatus status) {
+                if (status != AppServiceConnectionStatus::Success)
+                {
+                    cout << "bridge connection failed: " << (int)status << endl;
+                    return;
+                }
 
-    // Open the connection
-    create_task(connection->OpenAsync())
-        .then([connection](AppServiceConnectionStatus status) {
-          if (status != AppServiceConnectionStatus::Success) {
-            cout << "bridge connection failed: " << (int)status << endl;
-            return;
-          }
+                bridgeConn = connection;
+                cout << "bridge ready" << endl;
 
-          bridgeConn = connection;
-          cout << "bridge ready" << endl;
-
-          bridgeConn->RequestReceived +=
-              ref new TypedEventHandler<AppServiceConnection ^,
-                                        AppServiceRequestReceivedEventArgs ^>(
-                  BridgeRequestReceived);
-          bridgeConn->ServiceClosed +=
-              ref new TypedEventHandler<AppServiceConnection ^,
-                                        AppServiceClosedEventArgs ^>(
-                  BridgeClosed);
-        });
-  });
+                bridgeConn->RequestReceived +=
+                    ref new TypedEventHandler<AppServiceConnection ^,
+                                              AppServiceRequestReceivedEventArgs ^>(
+                        BridgeRequestReceived);
+                bridgeConn->ServiceClosed +=
+                    ref new TypedEventHandler<AppServiceConnection ^,
+                                              AppServiceClosedEventArgs ^>(
+                        BridgeClosed);
+            });
+    });
 };
 
 void BridgeRequestReceived(AppServiceConnection ^ connection,
