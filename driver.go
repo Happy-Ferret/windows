@@ -3,7 +3,6 @@ package windows
 import (
 	"errors"
 	"runtime"
-	"syscall"
 
 	"github.com/murlokswarm/app"
 	"github.com/murlokswarm/log"
@@ -11,21 +10,13 @@ import (
 
 var (
 	driver   *Driver
-	dll      *syscall.DLL
-	dllName  = `murlok.dll`
 	launched = false
 )
 
 func init() {
-	var err error
-
 	runtime.LockOSThread()
 	driver = NewDriver()
 	app.RegisterDriver(driver)
-
-	if dll, err = syscall.LoadDLL(dllName); err != nil {
-		log.Error(err)
-	}
 }
 
 // Driver is the implementation of the Windows driver.
@@ -41,18 +32,7 @@ func NewDriver() *Driver {
 }
 
 func (d *Driver) Run() {
-	proc, err := dll.FindProc("Driver_Run")
-	if err != nil {
-		log.Warn(err)
-		return
-	}
-	proc.Call()
-
-	go func() {
-		for {
-		}
-	}()
-
+	go callDllFunc("Driver_Run")
 	<-d.closeChan
 }
 
@@ -86,4 +66,33 @@ func ensureLaunched() {
 	if !launched {
 		log.Panic(errors.New(`creating and interacting with contexts requires the app to be launched. set app.OnLaunch handler and launch the app by calling app.Run()`))
 	}
+}
+
+func onLaunch() uintptr {
+	launched = true
+	log.Info("OMG driver is really launched")
+
+	// app.UIChan <- func() {
+	// 	if app.OnLaunch != nil {
+	// 		app.OnLaunch()
+	// 	}
+	// }
+	return 0
+}
+
+func onTerminate() uintptr {
+	termChan := make(chan bool)
+
+	app.UIChan <- func() {
+		if app.OnTerminate != nil {
+			termChan <- app.OnTerminate()
+			return
+		}
+		termChan <- true
+	}
+
+	if <-termChan {
+		return 1
+	}
+	return 0
 }

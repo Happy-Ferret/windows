@@ -6,6 +6,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.AppService;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -32,6 +34,42 @@ namespace murlok_uwp
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
+
+        public static AppServiceConnection Connection = null;
+
+        BackgroundTaskDeferral appServiceDeferral = null;
+        /// <summary>
+        /// Initializes the app service on the host process 
+        /// </summary>
+        protected override async void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            base.OnBackgroundActivated(args);
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
+            {
+                appServiceDeferral = args.TaskInstance.GetDeferral();
+                args.TaskInstance.Canceled += OnTaskCanceled; // Associate a cancellation handler with the background task.
+
+                AppServiceTriggerDetails details = args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
+                Connection = details.AppServiceConnection;
+
+               var msg = Action.New(ActionType.DriverLaunched);
+               AppServiceResponse response = await Connection.SendMessageAsync(msg);
+            }
+        }
+    
+ 
+        /// <summary>
+        /// Associate the cancellation handler with the background task 
+        /// </summary>
+        private void OnTaskCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        {
+            if (this.appServiceDeferral != null)
+            {
+                // Complete the service deferral.
+                this.appServiceDeferral.Complete();
+
+            }
         }
 
         /// <summary>

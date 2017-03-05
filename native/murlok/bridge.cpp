@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "dll.h"
 #include "bridge.h"
 
 using namespace std;
@@ -54,7 +55,37 @@ IAsyncAction ^ BridgeConnectAsync() {
 };
 
 void BridgeRequestReceived(AppServiceConnection ^ connection,
-                           AppServiceRequestReceivedEventArgs ^ args) {}
+                           AppServiceRequestReceivedEventArgs ^ args)
+{
+    auto deferral = args->GetDeferral();
+
+    auto message = args->Request->Message;
+    auto actionType = _wtoi(message->Lookup(L"type")->ToString()->Data());
+    auto actionPayload = message->Lookup(L"payload")->ToString();
+
+    cout << "action type: " << actionType << endl;
+
+    switch (actionType)
+    {
+    case DriverLaunched:
+		cout << "DriverLaunched " << endl;
+		_onLaunch();
+		cout << "DriverLaunched ok" << endl;
+        break;
+
+    default:
+        break;
+    }
+
+    auto response = ref new ValueSet();
+    response->Insert("response", "ack");
+    create_task(args->Request->SendResponseAsync(response)).then([deferral](AppServiceResponseStatus status) {
+        deferral->Complete();
+    });
+}
 
 void BridgeClosed(AppServiceConnection ^ connection,
-                  AppServiceClosedEventArgs ^ args) {}
+                  AppServiceClosedEventArgs ^ args)
+{
+    cout << "bridge closed" << endl;
+}
