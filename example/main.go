@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/murlokswarm/app"
 	_ "github.com/murlokswarm/windows"
@@ -9,15 +10,27 @@ import (
 
 func main() {
 	fmt.Println("Windows example")
-	app.Run()
 
-	// i := 0
-	// for {
-	// 	time.Sleep(time.Second)
-	// 	log.Info(i)
-	// 	if i == 3 {
-	// 		return
-	// 	}
-	// 	i++
-	// }
+	app.OnLaunch = func() {
+		fmt.Println("The app is launched!")
+	}
+
+	app.OnFocus = func() {
+		fmt.Println("The app is focus!")
+	}
+
+	app.OnBlur = func() {
+		fmt.Println("The app is blur!")
+	}
+
+	app.OnLaunch = func() {
+		fmt.Println("The app is launched!")
+	}
+
+	app.OnFinalize = func() {
+		fmt.Println("The app is finalizing!")
+		time.Sleep(time.Second * 1)
+	}
+
+	app.Run()
 }

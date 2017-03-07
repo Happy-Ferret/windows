@@ -63,14 +63,25 @@ void BridgeRequestReceived(AppServiceConnection ^ connection,
     auto actionType = _wtoi(message->Lookup(L"type")->ToString()->Data());
     auto actionPayload = message->Lookup(L"payload")->ToString();
 
-    cout << "action type: " << actionType << endl;
+	wcout << "raw action type: " << message->Lookup(L"type")->ToString()->Data() << endl;
+	cout << "action type: " << actionType << endl;
 
     switch (actionType)
     {
-    case DriverLaunched:
-		cout << "DriverLaunched " << endl;
-		_onLaunch();
-		cout << "DriverLaunched ok" << endl;
+    case OnLaunch:
+        _onLaunch();
+        break;
+
+	case OnFocus:
+		_onFocus();
+		break;
+
+	case OnBlur:
+		_onBlur();
+		break;
+
+    case OnFinalize:
+        _onFinalize();
         break;
 
     default:

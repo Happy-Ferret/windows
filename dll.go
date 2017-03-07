@@ -1,11 +1,15 @@
 package windows
 
+/*
+#include "dll.hpp"
+*/
 import "C"
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"syscall"
+
+	"unsafe"
 
 	"github.com/murlokswarm/log"
 )
@@ -15,7 +19,7 @@ var (
 	dllptr []uintptr
 )
 
-func init() {
+func initDll() {
 	wd, err := os.Getwd()
 	if err != nil {
 		log.Panic(err)
@@ -31,8 +35,15 @@ func init() {
 		log.Panic(err)
 	}
 
-	initDllCallback("Init_OnLaunch", onLaunch)
-	initDllCallback("Init_OnTerminate", onTerminate)
+	initDllCallback("Init_OnLaunch", C.DLL_OnLaunch)
+	initDllCallback("Init_OnFocus", C.DLL_OnFocus)
+	initDllCallback("Init_OnBlur", C.DLL_OnBlur)
+	initDllCallback("Init_OnTerminate", C.DLL_OnTerminate)
+	initDllCallback("Init_OnFinalize", C.DLL_OnFinalize)
+}
+
+func releaseDll() {
+	dll.Release()
 }
 
 func callDllFunc(name string, a ...uintptr) (r uintptr) {
@@ -45,9 +56,6 @@ func callDllFunc(name string, a ...uintptr) (r uintptr) {
 	return
 }
 
-func initDllCallback(name string, fn interface{}) {
-	a := syscall.NewCallback(fn)
-	fmt.Println(a)
-	callDllFunc(name, a)
-	dllptr = append(dllptr, a)
+func initDllCallback(name string, fn unsafe.Pointer) {
+	callDllFunc(name, uintptr(fn))
 }

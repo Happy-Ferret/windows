@@ -6,13 +6,15 @@ using namespace Windows::Foundation;
 
 enum ActionType
 {
-	DriverLaunched,
-	DriverTerminating,
-	DriverTerminated
+    OnLaunch,
+	OnFocus,
+	OnBlur,
+    OnTerminate,
+    OnFinalize
 };
 
 IAsyncAction ^ BridgeConnectAsync();
 void BridgeRequestReceived(AppServiceConnection ^ connection,
-                           AppServiceRequestReceivedEventArgs ^ args);
+			   AppServiceRequestReceivedEventArgs ^ args);
 void BridgeClosed(AppServiceConnection ^ connection,
-                  AppServiceClosedEventArgs ^ args);
+		  AppServiceClosedEventArgs ^ args);

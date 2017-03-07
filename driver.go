@@ -1,5 +1,6 @@
 package windows
 
+import "C"
 import (
 	"errors"
 	"runtime"
@@ -32,6 +33,9 @@ func NewDriver() *Driver {
 }
 
 func (d *Driver) Run() {
+	initDll()
+	defer releaseDll()
+
 	go callDllFunc("Driver_Run")
 	<-d.closeChan
 }
@@ -68,19 +72,37 @@ func ensureLaunched() {
 	}
 }
 
-func onLaunch() uintptr {
+//export onLaunch
+func onLaunch() {
 	launched = true
-	log.Info("OMG driver is really launched")
 
-	// app.UIChan <- func() {
-	// 	if app.OnLaunch != nil {
-	// 		app.OnLaunch()
-	// 	}
-	// }
-	return 0
+	app.UIChan <- func() {
+		if app.OnLaunch != nil {
+			app.OnLaunch()
+		}
+	}
 }
 
-func onTerminate() uintptr {
+//export onFocus
+func onFocus() {
+	app.UIChan <- func() {
+		if app.OnFocus != nil {
+			app.OnFocus()
+		}
+	}
+}
+
+//export onBlur
+func onBlur() {
+	app.UIChan <- func() {
+		if app.OnBlur != nil {
+			app.OnBlur()
+		}
+	}
+}
+
+//export onTerminate
+func onTerminate() int {
 	termChan := make(chan bool)
 
 	app.UIChan <- func() {
@@ -90,9 +112,16 @@ func onTerminate() uintptr {
 		}
 		termChan <- true
 	}
-
 	if <-termChan {
 		return 1
 	}
 	return 0
+}
+
+//export onFinalize
+func onFinalize() {
+	if app.OnFinalize != nil {
+		app.OnFinalize()
+	}
+	driver.closeChan <- true
 }

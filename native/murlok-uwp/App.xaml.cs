@@ -33,6 +33,9 @@ namespace murlok_uwp
         public App()
         {
             this.InitializeComponent();
+            this.LeavingBackground += OnLeavingBackground;
+            this.EnteredBackground += OnEnteredBackground;
+            this.Resuming += OnResuming;
             this.Suspending += OnSuspending;
         }
 
@@ -53,7 +56,7 @@ namespace murlok_uwp
                 AppServiceTriggerDetails details = args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
                 Connection = details.AppServiceConnection;
 
-               var msg = Action.New(ActionType.DriverLaunched);
+               var msg = Action.New(ActionType.OnLaunch);
                AppServiceResponse response = await Connection.SendMessageAsync(msg);
             }
         }
@@ -121,6 +124,7 @@ namespace murlok_uwp
             LaunchBackgroundProcess();
         }
 
+
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>
@@ -131,6 +135,26 @@ namespace murlok_uwp
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
+        private async void OnLeavingBackground(object sender, LeavingBackgroundEventArgs e)
+        {
+            if (Connection != null)
+            {
+                var msg = Action.New(ActionType.OnFocus);
+                AppServiceResponse response = await Connection.SendMessageAsync(msg);
+            }
+        }
+
+        private async void OnEnteredBackground(object sender, EnteredBackgroundEventArgs e)
+        {
+            var msg = Action.New(ActionType.OnBlur);
+            AppServiceResponse response = await Connection.SendMessageAsync(msg);
+        }
+
+        private void OnResuming(object sender, object e)
+        {
+            System.Diagnostics.Debug.WriteLine("OnResuming");
+        }
+
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
         /// without knowing whether the application will be terminated or resumed with the contents
@@ -138,12 +162,19 @@ namespace murlok_uwp
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+
+        
+            var msg = Action.New(ActionType.OnFinalize);
+            AppServiceResponse response = await Connection.SendMessageAsync(msg);
+            Connection.Dispose();
+
             deferral.Complete();
         }
+    
 
         private async void LaunchBackgroundProcess()
         {
@@ -155,6 +186,6 @@ namespace murlok_uwp
             {
                 System.Diagnostics.Debug.WriteLine("BackgroundProcess failed to launch");
             }
-        }
+        } 
     }
 }

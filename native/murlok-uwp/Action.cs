@@ -9,9 +9,11 @@ namespace murlok_uwp
 {
     enum ActionType
     {
-        DriverLaunched,
-        DriverTerminating,
-        DriverTerminated
+        OnLaunch,
+        OnFocus,
+        OnBlur,
+        OnTerminate,
+        OnFinalize
     }
 
     class Action
@@ -24,7 +26,7 @@ namespace murlok_uwp
         public static ValueSet New(ActionType type, string payload)
         {
             ValueSet valueSet = new ValueSet();
-            valueSet.Add("type", type.ToString());
+            valueSet.Add("type", type.ToString("D"));
             valueSet.Add("payload", payload);
             return valueSet;
         }
